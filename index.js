@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
+process.env.NODE_ENV = 'development';
+global.gConfig = require('./config/config');
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+
+const port = global.gConfig.node_port;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
