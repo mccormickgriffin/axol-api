@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
-process.env.NODE_ENV = 'development';
-global.gConfig = require('./config/config');
+require('dotenv').config();
 
-
-const port = global.gConfig.node_port;
+const appName = process.env.APP_NAME;
+const port = process.env.PORT;
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`${appName} listening on port ${port}`);
 });
