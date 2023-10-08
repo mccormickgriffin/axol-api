@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const sequelize = require("./database/connection");
-
+const User = require("./database/models/user");
 
 async function testDatabaseConnection() {
   try {
