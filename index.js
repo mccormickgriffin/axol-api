@@ -1,8 +1,28 @@
 const express = require('express');
-const app = express();
+const bodyParser = require('body-parser');
 require('dotenv').config();
+
 const sequelize = require("./database/connection");
-const User = require("./database/models/user");
+const errorHandler = require('./middleware/errorHandler');
+const authRoutes = require('./routes/auth');
+
+const app = express();
+
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(errorHandler);
+
+// Routes
+app.use(`${process.env.API_PREFIX}/auth`, authRoutes);
+
+// Server
+const appName = process.env.APP_NAME;
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`${appName} listening on port ${port}`);
+  testDatabaseConnection();
+});
 
 async function testDatabaseConnection() {
   try {
@@ -12,10 +32,3 @@ async function testDatabaseConnection() {
     console.error('Unable to connect to the database:', error);
   }
 }
-
-const appName = process.env.APP_NAME;
-const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`${appName} listening on port ${port}`);
-  testDatabaseConnection();
-});
