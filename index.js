@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 const sequelize = require("./database/connection");
@@ -12,6 +13,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(errorHandler);
+app.use(
+  cors({
+      origin: [process.env.WEBAPP_URL],
+      credentials: true
+  })
+);
 
 // Routes
 app.use(`${process.env.API_PREFIX}/auth`, authRoutes);
