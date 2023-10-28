@@ -29,6 +29,7 @@ app.use(
 app.use(`${process.env.API_PREFIX}/auth`, authRoutes);
 app.use(`${process.env.API_PREFIX}/user`, userRoutes);
 
+// Error handler
 app.use(errorHandler);
 
 // Server

@@ -8,7 +8,6 @@ async function getProfile(request, response, next) {
   const refreshToken = await db.getRefreshToken(userId, next);
   const accessToken = await spotify.getAccessToken(refreshToken, next);
   const profile = await spotify.getProfile(accessToken, next);
-  console.log(profile);;
   response.json({
     displayName: profile.displayName,
     imageUrl: profile.imageUrl,
